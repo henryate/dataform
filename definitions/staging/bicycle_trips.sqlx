@@ -1,0 +1,15 @@
+config {
+    type: "view",
+    schema: "staging",
+    description: "Bicycle rental data corresponding to New York City",
+}
+
+SELECT
+  EXTRACT(DATE
+  FROM
+    TIMESTAMP(starttime, 'UTC')) AS date,
+  DATETIME_DIFF(stoptime, starttime, SECOND) AS duration
+FROM
+  ${ref("citibike_trips")}
+LIMIT
+  10
